@@ -1,4 +1,4 @@
-package com.mysn.sweater.config.controller;
+package com.mysn.sweater.controller;
 
 import com.mysn.sweater.domain.Role;
 import com.mysn.sweater.domain.User;
