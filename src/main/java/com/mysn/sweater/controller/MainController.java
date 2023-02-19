@@ -1,8 +1,10 @@
-package com.mysn.sweater.config.controller;
+package com.mysn.sweater.controller;
 
 import com.mysn.sweater.domain.Message;
+import com.mysn.sweater.domain.User;
 import com.mysn.sweater.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +31,13 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
+    @PostMapping("/main")
+    public String add(
+            @AuthenticationPrincipal User user,
+            @RequestParam String text,
+            @RequestParam String tag, Map<String, Object> model
+    ) {
+        Message message = new Message(text, tag, user);
 
         messageRepo.save(message);
 
